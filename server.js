@@ -1,16 +1,12 @@
 const express = require('express')
 require('dotenv').config()
+const workoutRoutes = require('./routes/workoutRoutes')
 
 const app = express()
 
-app.use((req, res, next) => {
-	console.log(req.path)
-	next()
-})
+app.use(express.json()) // Checks any request if its body contains data in JSON and automatically converts it into a JS object.
 
-app.get('/', (req, res) => {
-	res.json({ mssg: 'Welcome to the app!' })
-})
+app.use('/api/workouts', workoutRoutes)
 
 app.listen(process.env.PORT, () => {
 	console.log(`Listening on port ${process.env.PORT}`)
